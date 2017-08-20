@@ -384,15 +384,15 @@
 			for (var i = 0; i <loanCycle ; i++) {
 				year = mydate.getFullYear()
 				month = mydate.getMonth();
-				day = mydate.getDay();
+				day = mydate.getDate();
 				if((month + 1) > 12) {
 					month = 1;
 					year = year +1;
-					mydate.setYear(year);
-					mydate.setMonth(month);
 				} else {
 					month = month + 1;
 				}
+				mydate.setYear(year);
+					mydate.setMonth(month);
 				var total;
 				if (($("input[name='loanMode']").val() == 0) && (i != (loanCycle -1))){
 					benjin=0;
