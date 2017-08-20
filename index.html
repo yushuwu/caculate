@@ -406,8 +406,12 @@
 					monthParkingFee = 0;
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
 				} else {
-					benjin = parseInt($("#contractValueId").val())/loanCycle;
-					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee); 
+					console.log(parseInt($("#contractValueId").val()));
+					console.log(loanCycle);
+					
+					benjin = Math.ceil(parseInt($("#contractValueId").val())/loanCycle);
+					console.log(benjin);
+					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
 				}
 				var repayDate = year.toString()+"-"+(month+1).toString()+"-"+day.toString();
 			
