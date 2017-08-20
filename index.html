@@ -354,7 +354,7 @@
 			var loanCycle = parseInt($("#loanCycle").val());
 			var mydate = new Date;
 			
-			var benjin = parseInt($("#contractValueId").val())/parseInt($("#loanCycle").val());
+			var benjin;
 			var lixi = $("#rateOseMoneyId").val();
 			var monthGpsFee = $("#monthGpsFee").val();
 			var monthRiskFee = $("#monthRiskFee").val();
@@ -406,6 +406,7 @@
 					monthParkingFee = 0;
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
 				} else {
+					benjin = parseInt($("#contractValueId").val())/loanCycle;
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee); 
 				}
 				var repayDate = year.toString()+"-"+(month+1).toString()+"-"+day.toString();
