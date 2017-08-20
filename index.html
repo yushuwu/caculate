@@ -415,7 +415,7 @@
 //					console.log(benjin);
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
 				}
-				var repayDate = year.toString()+"-"+(month+1).toString()+"-"+day.toString();
+				var repayDate = mydate.getFullYear().toString()+"-"+(mydate.getMonth()+1).toString()+"-"+mydate.getDate().toString();
 			
 				html = html +"<dl><dd>"+(i+1)+"</dd><dd>"+
 				repayDate+"</dd><dd>"+
