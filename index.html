@@ -400,6 +400,10 @@
 				}
 				if (($("input[name='loanMode']").val() == 0) && (i == (loanCycle -1))){
 					benjin= parseInt($("#contractValueId").val());
+					lixi = 0;
+					monthGpsFee = 0;
+					monthRiskFee = 0;
+					monthParkingFee = 0;
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
 				} else {
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee); 
