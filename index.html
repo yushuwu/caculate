@@ -378,16 +378,18 @@
 			$("#loanMoney").html(realMoney);
 			// 生成计划
 			var html = "<dl class='table-first-dl'><dt>期数</dt><dt>还款时间</dt><dt>本金</dt><dt>月利息</dt><dt>GPS使用费</dt><dt>风险金/月</dt><dt>停车费每月</dt><dt>月还款总额</dt></dl>";
-			var year = mydate.getFullYear(); //获取当前年份(2位)
-			var month = mydate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
-			var day = mydate.getDay();
+			var year; //获取当前年份(2位)
+			var month; //获取当前月份(0-11,0代表1月)
+			var day;
 			for (var i = 0; i <loanCycle ; i++) {
+				year = mydate.getFullYear()
+				month = mydate.getMonth();
+				day = mydate.getDay();
 				if((month + 1) > 12) {
 					month = 1;
 					year = year +1;
 					mydate.setYear(year);
 					mydate.setMonth(month);
-					mydate.setDay(day);
 				} else {
 					month = month + 1;
 				}
@@ -402,7 +404,7 @@
 				} else {
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee); 
 				}
-				var repayDate = year.toString()+"-"+month.toString()+"-"+day.toString();
+				var repayDate = year.toString()+"-"+(month+1).toString()+"-"+day.toString();
 			
 				html = html +"<dl><dd>"+(i+1)+"</dd><dd>"+
 				repayDate+"</dd><dd>"+
