@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv=X-UA-Compatible content=“IE=EmulateIE10”>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="pragma" content="no-cache">
+		<link rel="shortcut icon" href="./resources/images/logo.ico">
+		<link rel="stylesheet" type="text/css" href="./resources/css/base/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="./resources/css/base/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="./resources/css/busi/skin/jedate.css"/>
+		<link rel="stylesheet" type="text/css" href="./resources/css/base/css/html5uploader.css"/>
+		<link rel="stylesheet" type="text/css" href="./resources/css/base/css/zoom.css"/>
+		<link rel="stylesheet" type="text/css" href="./resources/css/busi/style.css"/>
+		<script src="./js/base/jquery-1.8.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/base/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/base/jquery.tmpl.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/base/jquery.jedate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/base/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/base/ajaxfileupload.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/busi/com.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/md5.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/busi/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$.ajaxSetup({cache:false});
+		</script>
+	</head>
+	<body class="f-bg menu-show">
+		<div id="wrapper">
+			<div class="wrapper-left">
+				<div class="navbar-login" style="display: inherit;">
+				    <span id="setPeopleInfo">HI，XX</span>
+				    <a href="javascript:;" class="ml15" id='updatePassword'></a>
+					<a href="javascript:;" title="" class="ml5" id='logout'><i class="glyphicon glyphicon-off f16 c-red"></i></a>
+				</div>
+				<div class="top-wripper clearfix">
+				</div>
+				<nav class="navbar navbar-default" role="navgition" style="display: block;">
+					<div class="sidebar-collapse">
+						<ul class="nav nav-tabs link-url" id="menuRoleId">
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="page-wripper mobile_scroll">
+				<!-- <div class="panel-menu-bd"> -->
+					<div class="panel-menu" id="panel-menu">
+						<ul class="panel-nav" id="panel-nav">
+						</ul>
+					</div>
+				<!-- </div> -->
+				
+				<div class="panel panel-default"  id="panel">
+					<div class="panel-body">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title fl">业务办理 <i class="fa arrow"></i><span name="workflow/face_trial_info" class="workflow/face_trial_info">面审信息化</span>
+            <i class="fa arrow"></i><span>贷款试算</span></h3>
+        <div class="btn-list mr15 fr" style="padding-bottom:4px;">
+            <button type="button" class="btn btn-white" id="printBtn">打印列表</button>
+        </div>
+    </div>
+    <!-- 打印区域start -->
+    <div class="panel-main car-label" id="printDiv">
+        <form action="" id="face_f1" method="post" name="msform" enctype="multipart/form-data">
+            <div class="input-group-bg pb15">
+                <div class="col-label col-mr10 clearfix">
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">客户姓名</label>
+                            <input type="text" class="form-control " name="custName" value="" id="custNameId" maxlength="10" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">车牌号</label>
+                            <input type="text" class="form-control reb-bg" name="carLicense" value="" id="cph" maxlength="18" />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">产品类型</label>
+                            <div class="sel-option" id="feeTypeDiv">
+                                <input type="text" class="form-control reb-bg" name="prouTypeName" readonly />
+                                <input type="hidden" id="prouType" onchange="fillRateOseMoney()" name="prouType" >
+                                <ul class="sel-ul">
+                                    <li valip="0">抵押</li>
+                                    <li valip="1">质押</li>
+                                    <li valip="2">双押</li>
+                                </ul>
+                            </div>
+                           <i class="glyphicon glyphicon-chevron-down sel-opt"></i>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h3-title mt0">贷款信息</h3>
+
+                <div class="col-label col-mr10 clearfix">
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">合同金额</label>
+                            <input type="text" class="form-control chekAmount reb-bg" name="contractAmt" maxlength="12"
+                                   onkeyup="fillOseMoney()" id="contractValueId" value="0"/><em class="inpt-tip">元</em>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">借款方式</label>
+
+                            <div class="sel-option">
+                                <input type="text" readonly class="form-control reb-bg" name="" readonly />
+                                <input type="hidden" value="" name="loanMode" id="loanMode" onchange="loadByLoanMode()"/>
+                                <ul class="sel-ul">
+                                    <li valip="0">先息后本</li>
+                                    <li valip="1">等额本息</li>
+                                </ul>
+                            </div>
+                            <i class="glyphicon glyphicon-chevron-down sel-opt"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">贷款周期</label>
+                            <input type="text" class="form-control reb-bg" name="loanCycle" maxlength="12" placeholder="" id="loanCycle"/><em
+                                class="inpt-tip" id="loanCycleEm">月</em>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">贷款利率</label>
+                            <input type="text" class="form-control chekAmount reb-bg" name="loanRate" maxlength="12"
+                                   onkeyup="fillRateOseMoney()" id="rateId"/><em class="inpt-tip">%</em>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        <div class="input-group">
+                            <label class="input-group-addon">服务费率</label>
+                            <input type="text" class="form-control chekAmount" name="serviceRate" maxlength="12"
+                                   id="serviceRateId" "/><em class="inpt-tip">%</em>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h3-title mt0">收费详情</h3>
+                <h4 class="h4-title">一次性收费
+                </h4>
+
+                <div class="clearfix">
+                    <div class="col-label col-mr10 printMargin">
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">服务费</label>
+                                <input type="text" class="form-control chekAmount" value="0" name="serviceFee" maxlength="12"
+                                       id="serviceId"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">上抵费</label>
+                                <input type="text" class="form-control chekAmount" value="0" name="mortgageFee" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">加急放款费</label>
+                                <input type="text" class="form-control chekAmount" value="0" name="urgentFee" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">暂住证</label>
+                                <input type="text" class="form-control chekAmount" value="0" name="temporaryDeposit" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">风险金</label>
+                                <input type="text" class="form-control chekAmount" value="0"  name="onceRiskFee" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">GPS安装费</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="installGpsFee" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">下户费</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="lowerCostFee" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">商业险押金</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="busiInsuranceDeposit" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">交强险押金</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="jqInsuranceDeposit" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">保证金</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="cashDeposit" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">违章押金</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="illegalDeposit" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">停车费一次性</label>
+                                <input type="text" class="form-control chekAmount"  value="0"  name="onceParkingFee" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">同行代付</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="peersPayAmt" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">其他费用</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="otherFee" maxlength="12" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h4 class="h4-title">利息与管理&nbsp;<span style="color: #ff0000;font-size: 12px">(按月收取)</span></h4>
+
+                <div class="clearfix">
+                    <div class="col-label col-mr10">
+                    	<div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon pl0">月本金</label>
+                                <input type="text" class="form-control chekAmount" id="benjin"
+                                       name="benjin" maxlength="12"  value="0" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon pl0">资金使用月利息</label>
+                                <input type="text" class="form-control chekAmount" id="rateOseMoneyId"
+                                       name="capitalMonthAmt" maxlength="12"  value="0" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">GPS使用费</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="monthGpsFee" id="monthGpsFee" maxlength="12" />
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">风险金</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="monthRiskFee" id="monthRiskFee" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <label class="input-group-addon">停车费(月)</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="monthParkingFee" id="monthParkingFee" maxlength="12" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-ul middle-btnul pb15 tc">
+                    <button type="button" class="btn btn-blue mr30" id="caculate1">试算</button>
+                    <button type="button" class="btn btn-gray mr30" onclick="gohistory('workflow/face_trial_info')"
+                            style="display:none" id="close">返回
+                    </button>.
+                    <button type="button" class="btn btn-gray mr30" onclick="gohistoryback()" style="display:none"
+                            id="goback">返回
+                    </button>
+                </div>
+                <section class="calulate-text">
+                    <p>到手金额<span id="loanMoney"></span>元</p>
+
+                    <p>声明：本人已明晰上述各项收费标准及含义（含综合管理费、保证金、风险金、GPS费用等），并了解贷款发放后本人的权利和义务。</p>
+
+                    <p>温馨提示：</p>
+
+                    <p>1、以上成本不包括逾期迟还款费用，逾期罚息以合同为准，催收费另计</p>
+
+                    <p>2、保证金在还款结清后归还客户（如发生逾期，保证金不予退还）。</p>
+
+                    <p class="cal-wid5"><span>客户签字：</span><span>日期：</span></p>
+                </section>
+
+
+                <p class="mb0">还款账单如下:</p>
+
+                <div class="table tab-cacut" id="list">
+                    <dl class="table-first-dl">
+                        <dt>期数</dt>
+                        <dt>还款时间</dt>
+                        <dt>本金</dt>
+                        <dt>月利息</dt>
+                        <dt>GPS使用费</dt>
+                        <dt>风险金/月</dt>
+                        <dt>停车费每月</dt>
+                        <dt>月还款总额</dt>
+                    </dl>
+                </div>
+                <!--<script id=billList type="text/x-jquery-tmpl">
+				{{each(i,Data) busiBillVoList}}
+			<dl>
+			<dd>{{= Data.num}}</dd>
+			<dd>{{= Data.repayTime}}</dd>
+			<dd>{{= Data.corpus/100}}</dd>
+			<dd>{{= Data.instOfMonth/100}}</dd>
+			<dd>{{= Data.costOfGps/100}}</dd>
+			<dd>{{= Data.riskMoney/100}}</dd>
+			<dd>{{= Data.advanceMoney/100}}</dd>
+			<dd>{{= Data.manFee/100}}</dd>
+			<dd>{{= Data.stopCarFeePerMonth/100}}</dd>
+			<dd>{{= Data.totalMoneyPerMonth/100}}</dd>
+			</dl>
+			{{/each}}
+
+
+                </script>-->
+            </div>
+        </form>
+    </div>
+    <!-- 打印区域end -->
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#caculate1").click(function () {
+            <!--Cddd.loadPopShow();-->
+            $("input.chekAmount").each(function (index) {
+                var p = $(this).val();
+                if (p == null || p == '') {
+                    $(this).val("0");
+                }
+            });
+			
+			var loanCycle = parseInt($("#loanCycle").val());
+			var mydate = new Date;
+			var year = mydate.getFullYear(); //获取当前年份(2位)
+			
+			var month = mydate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+			
+			var benjin = $("#benjin").val();
+			var lixi = $("#rateOseMoneyId").val();
+			var monthGpsFee = $("#monthGpsFee").val();
+			var monthRiskFee = $("#monthRiskFee").val();
+			var monthParkingFee = $("#monthParkingFee").val();
+			
+			
+			// 生成计划
+			var html = "";
+			for (var i = 0; i <loanCycle ; i++) {
+				if((month + 1) > 12) {
+					month = 1;
+					year = year +1;
+				} else {
+					month = month + 1;
+				}
+				var total;
+				if (($("input[name='loanMode']").val() == 0) && (i == (loanCycle -1))){
+					benjin=0;
+					total = parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
+				} else {
+					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee); 
+				}
+				var repayDate = year.toString()+"-"+month.toString();
+			
+				html = html +"<dl><dd>"+(i+1)+"</dd><dd>"+
+				repayDate+"</dd><dd>"+
+				benjin+"</dd><dd>"+
+				lixi+"</dd><dd>"+
+				monthGpsFee+"</dd><dd>"+
+				monthRiskFee+"</dd><dd>"+
+				monthParkingFee+"</dd><dd>"+
+				total+"</dd></dl>"
+			}
+			$("#list").append(html);
+        });
+        $("#printBtn").click(function () {
+            $(".btn-ul,.glyphicon-chevron-down").addClass("displayno");
+            var list = document.msform.elements;
+            for (var i = 0; i < list.length; i++) {
+                list[i].setAttribute("value", list[i].value);
+            }
+            var obj = document.getElementById("printDiv");
+            var printDiv = obj.innerHTML;
+            var newWindow = window.open("index.html", "_blank");
+            newWindow.document.write("<link rel='stylesheet' type='text/css' href='./resources/css/base/css/bootstrap.min.css'/>");
+            newWindow.document.write("<link rel='stylesheet' type='text/css' href='./resources/css/busi/style.css' media='print'/>");
+            setTimeout(function () {
+                newWindow.document.write(printDiv);
+                newWindow.document.close();
+                newWindow.print();
+                newWindow.close();
+            }, 1000);
+
+            $(".btn-ul,.glyphicon-chevron-down").removeClass("displayno");
+        });
+    });
+    
+    Date.prototype.Format = function(formatStr)
+		{
+			var str = formatStr;
+			var Week = ['日','一','二','三','四','五','六'];
+			
+			str=str.replace(/yyyy|YYYY/,this.getFullYear());
+			str=str.replace(/yy|YY/,(this.getYear() % 100)>9?(this.getYear() % 100).toString():'0' + (this.getYear() % 100));
+			
+			str=str.replace(/MM/,this.getMonth()>9?this.getMonth().toString():'0' + this.getMonth());
+			str=str.replace(/M/g,this.getMonth());
+			
+			str=str.replace(/w|W/g,Week[this.getDay()]);
+			
+			str=str.replace(/dd|DD/,this.getDate()>9?this.getDate().toString():'0' + this.getDate());
+			str=str.replace(/d|D/g,this.getDate());
+			
+			str=str.replace(/hh|HH/,this.getHours()>9?this.getHours().toString():'0' + this.getHours());
+			str=str.replace(/h|H/g,this.getHours());
+			str=str.replace(/mm/,this.getMinutes()>9?this.getMinutes().toString():'0' + this.getMinutes());
+			str=str.replace(/m/g,this.getMinutes());
+			
+			str=str.replace(/ss|SS/,this.getSeconds()>9?this.getSeconds().toString():'0' + this.getSeconds());
+			str=str.replace(/s|S/g,this.getSeconds());
+			
+			return str;
+		}	
+    
+    function fillOseMoney() {
+        var rateId = $("#rateId").val();
+        if (rateId == "" || rateId == 'undefined') {
+            return false;
+        } else {
+            fillRateOseMoney();
+        }
+        var serviceRateId = $("#serviceRateId").val()
+        if (serviceRateId == "" || serviceRateId == 'undefined') {
+            return false;
+        } else {
+            $("#serviceId").val(Math.ceil(parseFloat($("#serviceRateId").val() / 100 * $("#contractValueId").val()).toFixed(2)));
+        }
+    }
+    function fillRateOseMoney() {
+        var lixi = Math.ceil(parseFloat($("#rateId").val() / 100 * $("#contractValueId").val()).toFixed(2));
+        var minInterest = 0;
+        if($("#prouType").val()=='1' ||$("#prouType").val()=='2'){
+            minInterest = 450;
+        } else {
+            minInterest = 400;
+        }
+        if ($("input[name='loanMode']").val() == 1 && lixi < minInterest) {
+            $("#rateOseMoneyId").val(minInterest);
+        } else {
+            $("#rateOseMoneyId").val(lixi);
+        }
+        if ($("input[name='loanMode']").val() == 0) {
+            if ($("#contractValueId").val() < 30000) {
+                lixi = Math.ceil(parseFloat($("#rateId").val() / 100 * 30000).toFixed(2));
+            }
+            if($("#prouType").val()=='1' ||$("#prouType").val()=='2'){
+                minInterest = 450;
+            } else {
+                minInterest = 600;
+            }
+            if (lixi < minInterest) {
+                $("#rateOseMoneyId").val(minInterest);
+            } else {
+                $("#rateOseMoneyId").val(lixi);
+            }
+        }
+    }
+
+    function loadByLoanMode(){
+        var prouType = $("#prouType").val();
+        var loanModeValue = $("#loanMode").val();
+        if(prouType==3){
+            $("#loanCycleEm").text("期");
+            if(loanModeValue==0){
+                $("#loanCycle").attr("placeholder","借款周期为5/10期");
+                $("#rateId").val("1.5");
+            }else{
+                $("#loanCycle").attr("placeholder","借款周期为8-12期");
+                $("#rateId").val("2");
+            }
+        }else {
+            $("#loanCycleEm").text("月");
+            $("#loanCycle").attr("placeholder","");
+        }
+    }
+</script>
+				</div>
+			</div>
+		</div>
+		<div id="zoom">
+			<a class="close"></a>
+			<a href="#previous" class="previous"></a>
+			<a href="#next" class="next"></a>
+			<div class="content loading">
+			</div>
+		</div>
+	</body>
+</html>
