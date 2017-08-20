@@ -229,6 +229,13 @@
                         </div>
                         <div class="col-md-3 col-xs-4">
                             <div class="input-group">
+                                <label class="input-group-addon">免电核保证金</label>
+                                <input type="text" class="form-control chekAmount"  value="0" name="dianhe" maxlength="12" />
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
                                 <label class="input-group-addon">其他费用</label>
                                 <input type="text" class="form-control chekAmount"  value="0" name="otherFee" maxlength="12" />
                             </div>
@@ -241,13 +248,6 @@
 
                 <div class="clearfix">
                     <div class="col-label col-mr10">
-                    	<div class="col-md-3 col-xs-4">
-                            <div class="input-group">
-                                <label class="input-group-addon pl0">月本金</label>
-                                <input type="text" class="form-control chekAmount" id="benjin"
-                                       name="benjin" maxlength="12"  value="0" />
-                            </div>
-                        </div>
                         <div class="col-md-3 col-xs-4">
                             <div class="input-group">
                                 <label class="input-group-addon pl0">资金使用月利息</label>
@@ -315,6 +315,7 @@
                         <dt>月还款总额</dt>
                     </dl>
                 </div>
+                
                 <!--<script id=billList type="text/x-jquery-tmpl">
 				{{each(i,Data) busiBillVoList}}
 			<dl>
@@ -342,28 +343,44 @@
     $(function () {
         $("#caculate1").click(function () {
             <!--Cddd.loadPopShow();-->
+            $("#list").html("");
             $("input.chekAmount").each(function (index) {
                 var p = $(this).val();
                 if (p == null || p == '') {
                     $(this).val("0");
                 }
             });
-			
+			$("#list")
 			var loanCycle = parseInt($("#loanCycle").val());
 			var mydate = new Date;
 			var year = mydate.getFullYear(); //获取当前年份(2位)
 			
 			var month = mydate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
 			
-			var benjin = $("#benjin").val();
+			var benjin = parseInt($("#contractValueId").val())/parseInt($("#benjin").val());
 			var lixi = $("#rateOseMoneyId").val();
 			var monthGpsFee = $("#monthGpsFee").val();
 			var monthRiskFee = $("#monthRiskFee").val();
 			var monthParkingFee = $("#monthParkingFee").val();
-			
-			
+			// 计算到手金额
+			var frist = parseInt($("input[name='serviceFee']").val())+parseInt($("input[name='mortgageFee']").val())+parseInt($("input[name='urgentFee']").val())
+			+parseInt($("input[name='temporaryDeposit']").val())
+			+parseInt($("input[name='onceRiskFee']").val())+parseInt($("input[name='installGpsFee']").val())+parseInt($("input[name='lowerCostFee']").val())
+			+parseInt($("input[name='busiInsuranceDeposit']").val())
+			+parseInt($("input[name='jqInsuranceDeposit']").val())+parseInt($("input[name='cashDeposit']").val())+parseInt($("input[name='illegalDeposit']").val())
+			+parseInt($("input[name='onceParkingFee']").val())
+			+parseInt($("input[name='peersPayAmt']").val())+parseInt($("input[name='dianhe']").val())+parseInt($("input[name='otherFee']").val());
+			var second = parseInt($("input[name='capitalMonthAmt']").val())+parseInt($("input[name='monthGpsFee']").val())+parseInt($("input[name='monthRiskFee']").val())
+			+parseInt($("input[name='monthParkingFee']").val());
+			var realMoney = 0;
+			if($("input[name='loanMode']").val() == 0){
+				realMoney = parseInt($("#contractValueId").val()) - frist -second;
+			} else {
+				realMoney = parseInt($("#contractValueId").val()) - frist;
+			}
+			$("#loanMoney").html(realMoney);
 			// 生成计划
-			var html = "";
+			var html = "<dl class='table-first-dl'><dt>期数</dt><dt>还款时间</dt><dt>本金</dt><dt>月利息</dt><dt>GPS使用费</dt><dt>风险金/月</dt><dt>停车费每月</dt><dt>月还款总额</dt></dl>";
 			for (var i = 0; i <loanCycle ; i++) {
 				if((month + 1) > 12) {
 					month = 1;
@@ -372,9 +389,13 @@
 					month = month + 1;
 				}
 				var total;
-				if (($("input[name='loanMode']").val() == 0) && (i == (loanCycle -1))){
+				if (($("input[name='loanMode']").val() == 0) && (i != (loanCycle -1))){
 					benjin=0;
-					total = parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
+					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
+				}
+				if (($("input[name='loanMode']").val() == 0) && (i == (loanCycle -1))){
+					benjin= parseInt($("#contractValueId").val());
+					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
 				} else {
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee); 
 				}
