@@ -138,7 +138,7 @@
                         <div class="input-group">
                             <label class="input-group-addon">服务费率</label>
                             <input type="text" class="form-control chekAmount" name="serviceRate" maxlength="12"
-                                   id="serviceRateId" onkeyup="fillOseMoney()"/><em class="inpt-tip">%</em>
+                                   id="serviceRateId" onkeyup="fillServiceMoney()"/><em class="inpt-tip">%</em>
                         </div>
                     </div>
                 </div>
@@ -521,6 +521,9 @@
             $("#loanCycleEm").text("月");
             $("#loanCycle").attr("placeholder","");
         }
+    }
+	function fillServiceMoney() {
+        $("#serviceId").val(Math.ceil(parseFloat($("#serviceRateId").val() / 100 * $("#contractValueId").val()).toFixed(2)));
     }
 </script>
 				</div>
