@@ -111,7 +111,7 @@
 
                             <div class="sel-option">
                                 <input type="text" readonly class="form-control reb-bg" name="" readonly />
-                                <input type="hidden" value="" name="loanMode" id="loanMode" onchange="loadByLoanMode()"/>
+                                <input type="hidden" value="" name="loanMode" id="loanMode" />
                                 <ul class="sel-ul">
                                     <li valip="0">先息后本</li>
                                     <li valip="1">等额本息</li>
@@ -394,23 +394,25 @@
 				mydate.setYear(year);
 					mydate.setMonth(month);
 				var total;
-				if (($("input[name='loanMode']").val() == 0) && (i != (loanCycle -1))){
-					benjin=0;
-					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
-				}
-				if (($("input[name='loanMode']").val() == 0) && (i == (loanCycle -1))){
-					benjin= parseInt($("#contractValueId").val());
-					lixi = 0;
-					monthGpsFee = 0;
-					monthRiskFee = 0;
-					monthParkingFee = 0;
-					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
+				console.log($("input[name='loanMode']").val());
+				console.log(i);
+				console.log(loanCycle);
+				if ($("input[name='loanMode']").val() == 0){
+					if( parseInt(i) < (loanCycle -1)){
+						benjin=0;
+						total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);	
+					} else {
+						benjin= parseInt($("#contractValueId").val());
+						lixi = 0;
+						monthGpsFee = 0;
+						monthRiskFee = 0;
+						monthParkingFee = 0;
+						total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
+					}
 				} else {
-					console.log(parseInt($("#contractValueId").val()));
-					console.log(loanCycle);
 					
 					benjin = Math.ceil(parseInt($("#contractValueId").val())/loanCycle);
-					console.log(benjin);
+//					console.log(benjin);
 					total = parseInt(benjin)+parseInt(lixi)+parseInt(monthGpsFee)+parseInt(monthRiskFee)+parseInt(monthParkingFee);
 				}
 				var repayDate = year.toString()+"-"+(month+1).toString()+"-"+day.toString();
@@ -520,23 +522,23 @@
         }
     }
 
-    function loadByLoanMode(){
-        var prouType = $("#prouType").val();
-        var loanModeValue = $("#loanMode").val();
-        if(prouType==3){
-            $("#loanCycleEm").text("期");
-            if(loanModeValue==0){
-                $("#loanCycle").attr("placeholder","借款周期为5/10期");
-                $("#rateId").val("1.5");
-            }else{
-                $("#loanCycle").attr("placeholder","借款周期为8-12期");
-                $("#rateId").val("2");
-            }
-        }else {
-            $("#loanCycleEm").text("月");
-            $("#loanCycle").attr("placeholder","");
-        }
-    }
+//  function loadByLoanMode(){
+//      var prouType = $("#prouType").val();
+//      var loanModeValue = $("#loanMode").val();
+//      if(prouType==3){
+//          $("#loanCycleEm").text("期");
+//          if(loanModeValue==0){
+//              $("#loanCycle").attr("placeholder","借款周期为5/10期");
+//              $("#rateId").val("1.5");
+//          }else{
+//              $("#loanCycle").attr("placeholder","借款周期为8-12期");
+//              $("#rateId").val("2");
+//          }
+//      }else {
+//          $("#loanCycleEm").text("月");
+//          $("#loanCycle").attr("placeholder","");
+//      }
+//  }
     function fillServiceMoney() {
         $("#serviceId").val(Math.ceil(parseFloat($("#serviceRateId").val() / 100 * $("#contractValueId").val()).toFixed(2)));
     }
